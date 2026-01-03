@@ -1,29 +1,11 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import undoIcon from '@/assets/images/icon-undo.svg';
 import '@/App.css';
+import Layout from './components/Layout';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-red-500">Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-      <div className="text-preset-3 ml-4 flex h-24 border-2 border-gray-300 p-3 font-sans text-blue-400 shadow-md">
-        Something go in here
-      </div>
+      <Layout />
       <div className="container mx-auto flex items-center gap-300 bg-neutral-900 p-20">
         <button className="button-primary">Primary Button</button>
         <button className="button-secondary">
