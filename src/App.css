@@ -56,6 +56,7 @@
   --radius-24: 24px;
   --radius-full: 9999px;
 }
+
 @utility custom-container {
   @apply px-200 md:px-400 lg:px-1400;
 }
@@ -64,52 +65,52 @@
   @apply outline-2 outline-offset-2 outline-blue-400;
 }
 
-@utility text-preset-1 {
+@utility cus-text-1 {
   @apply text-2xl md:text-[40];
   @apply tracking-[0,32px] md:tracking-[0.4px];
   @apply leading-[1.2] md:leading-[1.36];
   @apply font-bold;
 }
 
-@utility text-preset-1-regular {
-  @apply text-[32px] md:text-[40];
+@utility cus-text-1-regular {
+  @apply text-[32px] md:text-[40px];
   @apply tracking-[0,4px];
   @apply leading-[1.36];
 }
 
-@utility text-preset-2 {
+@utility cus-text-2 {
   @apply text-2xl;
   @apply tracking-normal;
   @apply leading-none;
   @apply font-bold;
 }
 
-@utility text-preset-3 {
+@utility cus-text-3 {
   @apply text-base md:text-xl;
   @apply tracking-[-0,48px] md:tracking-[-0.6px];
   @apply leading-[1.2];
 }
 
-@utility text-preset-3-semi-bold {
+@utility cus-text-3-semi-bold {
   @apply text-xl;
   @apply tracking-[-0.3px];
   @apply leading-[1.2];
   @apply font-semibold;
 }
 
-@utility text-preset-4 {
+@utility cus-text-4 {
   @apply text-lg;
   @apply leading-[1.2];
   @apply tracking-[-0.6px];
 }
 
-@utility text-preset-5 {
+@utility cus-text-5 {
   @apply text-base;
   @apply leading-[1.2];
   @apply tracking-[-0.48px];
 }
 
-@utility text-preset-6 {
+@utility cus-text-6 {
   @apply text-xs;
   @apply leading-[1.2];
   @apply tracking-normal;
@@ -119,7 +120,7 @@
   @apply bg-blue-600 hover:bg-blue-400;
   @apply rounded-12;
   @apply px-300 py-200;
-  @apply text-neutral-0 text-preset-3-semi-bold;
+  @apply text-neutral-0 cus-text-3-semi-bold;
   @apply focus:outline-button;
 }
 
@@ -127,7 +128,7 @@
   @apply bg-neutral-0 hover:opacity-90;
   @apply rounded-12;
   @apply px-200 py-125;
-  @apply text-preset-3-semi-bold text-neutral-900;
+  @apply cus-text-3-semi-bold text-neutral-900;
   @apply focus:outline-button;
   @apply flex flex-row flex-nowrap gap-125;
 }
@@ -136,7 +137,7 @@
   @apply bg-neutral-800;
   @apply rounded-12;
   @apply px-200 py-125;
-  @apply text-preset-3-semi-bold text-neutral-0;
+  @apply cus-text-3-semi-bold text-neutral-0;
   @apply focus:outline-button;
   @apply flex flex-row flex-nowrap gap-125;
 }
@@ -146,10 +147,36 @@
   @apply rounded-8;
   @apply px-125 py-75;
   @apply focus:border-neutral-0 border border-neutral-500 hover:border-blue-600 active:border-blue-600;
-  @apply text-neutral-0 focus:text-neutral-0 text-preset-5 hover:text-blue-600 active:text-blue-600;
+  @apply text-neutral-0 focus:text-neutral-0 cus-text-5 capitalize hover:text-blue-600 active:text-blue-600;
   @apply focus:outline-button;
 }
 
+@utility button-selected {
+  @apply border-blue-600 text-blue-600;
+}
+
+@layer components {
+  .config-warper {
+    @apply flex flex-row flex-nowrap items-center gap-75;
+
+    .title {
+      @apply text-neutral-400;
+    }
+  }
+
+  .config-dropdown {
+    @apply relative flex w-full flex-row flex-nowrap md:hidden;
+
+    summary {
+      @apply cus-text-5 flex w-full cursor-pointer list-none flex-row flex-nowrap justify-center gap-125 rounded-lg border border-neutral-400 bg-neutral-900 px-125 py-75 text-white;
+      @apply focus:outline-button;
+    }
+
+    .dropdown-content {
+      @apply rounded-8 absolute top-full left-0 z-20 mt-2 w-full bg-neutral-800;
+    }
+  }
+}
 button {
   @apply cursor-pointer;
 }

@@ -19,7 +19,7 @@ export default function InputRadio() {
         <div className="h-75 w-75 rounded-full bg-current" />
       </div>
 
-      <span className="text-neutral-0 text-preset-5">Option 1</span>
+      <span className="text-neutral-0 cus-text-5">Option 1</span>
     </label>
   );
 }
