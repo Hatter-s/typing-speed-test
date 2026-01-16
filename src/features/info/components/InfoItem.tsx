@@ -18,7 +18,7 @@ export default function InfoItem({
   classStyle,
 }: Readonly<InfoItemProps>) {
   return (
-    <div className="flex min-w-21.75 flex-col gap-x-150 gap-y-100 md:flex-row">
+    <div className="flex min-w-21.75 flex-col items-center gap-x-150 gap-y-100 md:flex-row">
       <p className="cus-text-3 mx-auto text-neutral-400 capitalize">{title}:</p>
       <p className={cn('cus-text-2 mx-auto', classStyle)}>
         {before}

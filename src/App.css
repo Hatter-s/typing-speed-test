@@ -176,7 +176,29 @@
       @apply rounded-8 absolute top-full left-0 z-20 mt-2 w-full bg-neutral-800;
     }
   }
+
+  .result-info-container {
+    @apply flex w-full flex-col items-stretch gap-y-200 pb-200;
+    @apply md:flex-row md:flex-nowrap md:items-center md:gap-250 md:pt-250 md:pb-400;
+    @apply lg:justify-center;
+
+    .result-info-item {
+      @apply rounded-8 flex w-full flex-col gap-150 border border-neutral-700 px-300 py-200 lg:w-40;
+
+      .title {
+        @apply cus-text-3 text-neutral-400;
+      }
+
+      .content {
+        @apply cus-text-2;
+      }
+    }
+  }
 }
 button {
   @apply cursor-pointer;
+}
+
+.attribution a {
+  @apply text-blue-400 hover:underline;
 }

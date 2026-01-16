@@ -3,14 +3,14 @@ import { useWord } from '../hooks/useWord';
 
 export default function WordContainer() {
   let cId = -1;
-  const { cursorIndex, isActive, charsStatus, usedText, activeCharRef, handleActivateTying } =
+  const { cursorIndex, charsStatus, usedText, activeCharRef, handleActivateTying, activeStatus } =
     useWord();
 
   if (!usedText) return;
 
   return (
     <div className="relative flex flex-row flex-wrap border-t border-neutral-700 pt-400 pb-400 md:pb-500 lg:pb-800">
-      {!isActive && (
+      {activeStatus === 'inactive' && (
         <button
           type="button"
           className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-250 backdrop-blur-sm"
@@ -29,7 +29,7 @@ export default function WordContainer() {
               <span
                 id={`char-${cId}`}
                 key={`char-${cId}`}
-                ref={isActive && cursorIndex === cId ? activeCharRef : null}
+                ref={activeStatus === 'active' && cursorIndex === cId ? activeCharRef : null}
                 className={cn('cus-text-1-regular inline-block text-neutral-400', {
                   'border-b-[3px] border-red-500 text-red-500': charsStatus[cId] === 0,
                   'text-green-500': charsStatus[cId] === 1,

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { loadState, saveState } from '@/utils/localStorage';
-import infoReducer from '@/features/info/infoSlice';
+import infoReducer, { initialState as initInfo } from '@/features/info/infoSlice';
 import configReducer, {
   type Data as ConfigData,
   initialState as initConfig,
@@ -21,6 +21,10 @@ export const store = configureStore({
       persistedConfig !== undefined && persistedConfig !== null
         ? { ...initConfig, data: persistedConfig }
         : initConfig,
+    info:
+      persistedHighestWPM !== undefined && persistedHighestWPM !== null
+        ? { ...initInfo, data: { ...initInfo.data, highestWPM: persistedHighestWPM } }
+        : initInfo,
   },
 });
 

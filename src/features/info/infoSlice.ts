@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { SliceState } from '@/type';
+import type { SliceState, ResultStatusType } from '@/type';
 import { calAcc, calWPM } from './utils';
 
 interface Data {
@@ -7,14 +7,16 @@ interface Data {
   wpm: number;
   accuracy: number;
   startTime: number;
+  resultStatus: ResultStatusType;
 }
 
-const initialState: SliceState<Data> = {
+export const initialState: SliceState<Data> = {
   data: {
     highestWPM: 0,
     wpm: 0,
     accuracy: 100,
     startTime: 0,
+    resultStatus: 'normal',
   },
   status: 'idle',
   error: null,
@@ -25,6 +27,13 @@ const infoSlice = createSlice({
   initialState,
   reducers: {
     setHighestWPM: state => {
+      if (state.data.highestWPM === 0) {
+        state.data.resultStatus = 'first';
+      } else if (state.data.highestWPM < state.data.wpm) {
+        state.data.resultStatus = 'high-score';
+      } else {
+        state.data.resultStatus = 'normal';
+      }
       state.data.highestWPM = Math.max(state.data.highestWPM, state.data.wpm);
     },
     setStartTime: (state, action: PayloadAction<number>) => {
@@ -38,7 +47,7 @@ const infoSlice = createSlice({
       const payload = action.payload;
       state.data.accuracy = calAcc(payload.chars, payload.correct);
     },
-    resetInfo: state => {
+    resetInfoData: state => {
       state.data = {
         ...initialState.data,
         highestWPM: state.data.highestWPM,
@@ -47,5 +56,5 @@ const infoSlice = createSlice({
   },
 });
 
-export const { setHighestWPM, setStartTime, setWPM, setAcc, resetInfo } = infoSlice.actions;
+export const { setHighestWPM, setStartTime, setWPM, setAcc, resetInfoData } = infoSlice.actions;
 export default infoSlice.reducer;

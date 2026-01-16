@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import type { DifficultyType, SliceState, TypingItem } from '@/type';
+import type { DifficultyType, SliceState, TypingItem, ActiveStatusType } from '@/type';
 
 import { getErrorMessage } from '@/utils/error';
 
 export interface Data {
-  isActive: boolean;
+  activeStatus: ActiveStatusType;
   targetText: string;
   cursorIndex: number; //* start at 0
   charsStatus: (1 | 0)[]; //* use like stack charStatus will have 2 state 1 (right) and 0 (wrong)
@@ -13,7 +13,7 @@ export interface Data {
 
 export const initialState: SliceState<Data> = {
   data: {
-    isActive: false,
+    activeStatus: 'inactive',
     targetText: '',
     cursorIndex: 0,
     charsStatus: [],
@@ -84,14 +84,17 @@ const wordSlice = createSlice({
         }
       }
     },
-    activateTyping: state => {
-      state.data.isActive = true;
+    setActiveStatus: (state, action: PayloadAction<ActiveStatusType>) => {
+      state.data.activeStatus = action.payload;
     },
-    deactivateTyping: state => {
-      state.data.isActive = false;
-    },
-    resetInfo: state => {
-      state.data = { ...state.data, charsStatus: [], isActive: false, cursorIndex: 0, mistake: 0 };
+    resetWordData: state => {
+      state.data = {
+        ...state.data,
+        activeStatus: 'inactive',
+        charsStatus: [],
+        cursorIndex: 0,
+        mistake: 0,
+      };
     },
   },
   extraReducers: builder => {
@@ -117,6 +120,5 @@ const wordSlice = createSlice({
   },
 });
 
-export const { typeChar, deleteChar, activateTyping, deactivateTyping, resetInfo } =
-  wordSlice.actions;
+export const { typeChar, deleteChar, resetWordData, setActiveStatus } = wordSlice.actions;
 export default wordSlice.reducer;

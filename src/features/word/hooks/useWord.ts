@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { typeChar, deleteChar, activateTyping, deactivateTyping } from '../wordSlice';
+import { typeChar, deleteChar, setActiveStatus } from '../wordSlice';
 import { useGetText } from './useGetText';
 
 export const useWord = () => {
   const dispatch = useAppDispatch();
-  const { targetText, isActive, cursorIndex, charsStatus } = useAppSelector(
+  const { targetText, cursorIndex, charsStatus, activeStatus } = useAppSelector(
     state => state.word.data,
   );
   const activeCharRef = useRef<HTMLSpanElement>(null);
@@ -20,13 +20,14 @@ export const useWord = () => {
   });
 
   const handleActivateTying = () => {
-    dispatch(activateTyping());
+    dispatch(setActiveStatus('active'));
   };
 
   const handleDeactivateTying = () => {
-    dispatch(deactivateTyping());
+    dispatch(setActiveStatus('inactive'));
   };
 
+  //
   useEffect(() => {
     handleGetText();
   }, [handleGetText]);
@@ -34,7 +35,7 @@ export const useWord = () => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // 1. GLOBAL GUARD: If test is finished, ignore input
-      if (!isActive) return;
+      if (activeStatus !== 'active') return;
 
       const { key } = event;
 
@@ -76,7 +77,7 @@ export const useWord = () => {
 
     globalThis.addEventListener('keydown', handleKeyDown);
     return () => globalThis.removeEventListener('keydown', handleKeyDown);
-  }, [dispatch, isActive]);
+  }, [dispatch, activeStatus]);
 
   useEffect(() => {
     if (activeCharRef.current) {
@@ -91,11 +92,11 @@ export const useWord = () => {
 
   return {
     cursorIndex,
-    isActive,
     charsStatus,
     usedText,
     activeCharRef,
     handleActivateTying,
     handleDeactivateTying,
+    activeStatus,
   };
 };

@@ -8,6 +8,10 @@ export interface TypingItem {
 }
 export type TypingText = Record<DifficultyType, TypingItem[]>;
 
+export type ActiveStatusType = 'inactive' | 'active' | 'finish';
+
+export type ResultStatusType = 'normal' | 'first' | 'high-score';
+
 export interface Config<T> {
   title: string;
   id: T;
