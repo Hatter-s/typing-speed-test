@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import iconCompleted from '@/assets/images/icon-completed.svg';
 import undoIcon from '@/assets/images/icon-undo.svg';
 import iconNewPB from '@/assets/images/icon-new-pb.svg';
@@ -61,7 +62,14 @@ export default function Results() {
           </div>
           <div className="result-info-item">
             <p className="title">Accuracy:</p>
-            <p className="content text-red-500">{accuracy}</p>
+            <p
+              className={cn('content', {
+                'text-red-500': accuracy !== 100,
+                'text-green-500': accuracy === 100,
+              })}
+            >
+              {accuracy}%
+            </p>
           </div>
           <div className="result-info-item">
             <p className="title">Characters:</p>

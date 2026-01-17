@@ -2,7 +2,7 @@ import InfoItem from './InfoItem';
 import { useInfo } from '../hooks/useInfo';
 
 export default function InfoContainer() {
-  const { curTime, wpm, accuracy, activeStatus } = useInfo();
+  const { curTime, wpm, accuracy, activeStatus, mode } = useInfo();
   return (
     <div className="flex flex-row justify-center gap-x-250 md:justify-start md:gap-x-300">
       <InfoItem title="WPM" value={wpm} />
@@ -19,10 +19,10 @@ export default function InfoContainer() {
       <div className="w-px bg-neutral-700" />
       <InfoItem
         title="Time"
-        value={60 - curTime}
+        value={mode === 'passage' ? 60 : 60 - curTime}
         before={'0:'}
         classStyle={{
-          'text-yellow-400': activeStatus === 'active',
+          'text-yellow-400': activeStatus === 'active' && mode === 'timed',
         }}
       />
     </div>

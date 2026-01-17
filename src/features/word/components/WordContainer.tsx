@@ -9,7 +9,7 @@ export default function WordContainer() {
   if (!usedText) return;
 
   return (
-    <div className="relative flex flex-row flex-wrap border-t border-neutral-700 pt-400 pb-400 md:pb-500 lg:pb-800">
+    <div className="relative flex flex-row flex-wrap border-t border-neutral-700 pt-400 pb-400 select-none md:pb-500 lg:pb-800">
       {activeStatus === 'inactive' && (
         <button
           type="button"

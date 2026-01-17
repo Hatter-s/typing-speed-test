@@ -4,12 +4,14 @@ import { resetWordData, fetchTypingText } from '../wordSlice';
 
 export const useGetText = () => {
   const dispatch = useAppDispatch();
-  const { difficulty } = useAppSelector(state => state.config.data);
+  const { difficulty, mode } = useAppSelector(state => state.config.data);
 
   const handleGetText = useCallback(() => {
-    dispatch(resetWordData());
+    if (difficulty || mode)
+      //* just for add dependence mode
+      dispatch(resetWordData());
     dispatch(fetchTypingText(difficulty));
-  }, [dispatch, difficulty]);
+  }, [dispatch, difficulty, mode]);
 
   return { handleGetText };
 };

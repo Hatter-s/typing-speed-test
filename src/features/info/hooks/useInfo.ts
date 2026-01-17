@@ -14,6 +14,7 @@ export const useInfo = () => {
     targetText,
     activeStatus,
   } = useAppSelector(state => state.word.data);
+  const mode = useAppSelector(state => state.config.data.mode);
   const { wpm, accuracy, startTime } = useAppSelector(state => state.info.data);
   const [curTime, setCurTime] = useState(0);
 
@@ -47,7 +48,7 @@ export const useInfo = () => {
         const now = Date.now();
         const elapsedSeconds = Math.floor((now - startTime) / 1000);
 
-        if (elapsedSeconds >= TIME_LIMIT) {
+        if (elapsedSeconds >= TIME_LIMIT && mode === 'timed') {
           dispatch(setActiveStatus('finish'));
           setCurTime(0);
           clearInterval(intervalId);
@@ -58,7 +59,7 @@ export const useInfo = () => {
     }
 
     return () => clearInterval(intervalId);
-  }, [dispatch, activeStatus, startTime]);
+  }, [dispatch, activeStatus, startTime, mode]);
 
   //* Stats calculation
   useEffect(() => {
@@ -72,5 +73,5 @@ export const useInfo = () => {
     }
   }, [dispatch, activeStatus, curTime, cursorIndex, mis, targetText.length]);
 
-  return { curTime, wpm, accuracy, activeStatus };
+  return { curTime, wpm, accuracy, activeStatus, mode };
 };
