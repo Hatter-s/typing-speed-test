@@ -4,17 +4,23 @@ This is a solution to the [Typing Speed Test challenge on Frontend Mentor](https
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+- [Frontend Mentor - Typing Speed Test solution](#frontend-mentor---typing-speed-test-solution)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+      - [Home - Not started](#home---not-started)
+      - [Home - Started](#home---started)
+      - [Result](#result)
+      - [Result - First test](#result---first-test)
+      - [Result - High Score](#result---high-score)
+    - [Links](#links)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+      - [Setup custom style of tailwind](#setup-custom-style-of-tailwind)
+      - [Setup persist state (get data from localStorage to Redux)](#setup-persist-state-get-data-from-localstorage-to-redux)
+  - [Author](#author)
 
 **Note: Delete this note and update the table of contents based on what sections you keep.**
 
@@ -29,35 +35,50 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+#### Home - Not started
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
+![Desktop](./screenshots/desktop_home_not-started.png)
+![Tablet](./screenshots/tablet_home_not-started.png)
+![Mobile](./screenshots/mobile_home_not-started.png)
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
+#### Home - Started
 
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
+![Desktop](./screenshots/desktop_home_started.png)
+![Tablet](./screenshots/tablet_home_started.png)
+![Mobile](./screenshots/mobile_home_started.png)
 
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+#### Result
+
+![Desktop](./screenshots/desktop_result.png)
+![Tablet](./screenshots/tablet_result.png)
+![Mobile](./screenshots/mobile_result.png)
+
+#### Result - First test
+
+![Desktop](./screenshots/desktop_result-first-test.png)
+![Tablet](./screenshots/tablet_result-first-test.png)
+![Mobile](./screenshots/mobile_result-first-test.png)
+
+#### Result - High Score
+
+![Desktop](./screenshots/desktop_result-high-score.png)
+![Tablet](./screenshots/tablet_result-high-score.png)
+![Mobile](./screenshots/mobile_result-high-score.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Hatter-s/typing-speed-test](https://github.com/Hatter-s/typing-speed-test)
+- Live Site URL: [Here](https://typing-speed-test-hatter.netlify.app)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
+- Typescript - main language
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- [Redux](https://redux.js.org/) - State management
+- [React router](https://reactrouter.com/) - Router for SPA
+- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
 
 ### What I learned
 
@@ -65,49 +86,125 @@ Use this section to recap over some of your major learnings while working throug
 
 To see how you can add code snippets, see below:
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+#### Setup custom style of tailwind
 
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+@theme {
+  --font-sans: 'Sora', 'sans-serif';
+
+  --color-neutral-900: hsl(0, 0%, 7%);
+  --color-neutral-800: hsl(0, 0%, 15%);
+  --color-neutral-700: hsl(0, 0%, 23%);
+  --color-neutral-500: hsl(240, 3%, 46%);
+  --color-neutral-400: hsl(240, 1%, 59%);
+  --color-neutral-0: hsl(0, 0%, 100%);
+
+  ...
+
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-full: 9999px;
 }
+
+@utility cus-text-1 {
+  @apply text-2xl md:text-[40];
+  @apply tracking-[0,32px] md:tracking-[0.4px];
+  @apply leading-[1.2] md:leading-[1.36];
+  @apply font-bold;
+}
+
+@utility cus-text-1-regular {
+  @apply text-[32px] md:text-[40px];
+  @apply tracking-[0,4px];
+  @apply leading-[1.36];
+}
+
+...
+@layer components {
+  .config-warper {
+    @apply flex flex-row flex-nowrap items-center gap-75;
+
+    .title {
+      @apply text-neutral-400;
+    }
+  }
+
+  ...
+
+  .result-info-container {
+    @apply flex w-full flex-col items-stretch gap-y-200 pb-200;
+    ...
+    .result-info-item {
+      @apply rounded-8 flex w-full flex-col gap-150 border border-neutral-700 px-300 py-200 lg:w-40;
+
+      .title {
+        @apply cus-text-3 text-neutral-400;
+      }
+
+      .content {
+        @apply cus-text-2;
+      }
+    }
+  }
+}
+
 ```
 
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉');
+#### Setup persist state (get data from localStorage to Redux)
+
+- utils/localStorage.ts
+
+```ts
+export const loadState = <T>(key: string): T | undefined => {
+  try {
+    const valueString = localStorage.getItem(key);
+    return valueString ? (JSON.parse(valueString) as T) : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+export const saveState = (key: string, state: unknown) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(state));
+  } catch (error) {
+    console.error(error);
+  }
 };
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+- store/index.ts
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```ts
+  ...
+  const persistedHighestWPM = loadState<number>('highestWPM');
+  const persistedConfig = loadState<ConfigData>('config');
+  ...
+  export store = configureStore({
+    ...
+    preloadedState: {
+      config:
+        persistedConfig !== undefined && persistedConfig !== null
+          ? { ...initConfig, data: persistedConfig }
+          : initConfig,
+      info:
+        persistedHighestWPM !== undefined && persistedHighestWPM !== null
+          ? { ...initInfo, data: { ...initInfo.data, highestWPM: persistedHighestWPM } }
+          : initInfo,
+    },
+  });
 
-### Continued development
-
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+  store.subscribe(() => {
+    const state = store.getState();
+    saveState('highestWPM', state.info.data?.highestWPM);
+    saveState('config', state.config.data);
+  )};
+  ...
+```
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@Hatter-s](https://www.frontendmentor.io/profile/Hatter-s)
+- Github - [@Hatter-s](https://github.com/Hatter-s)
